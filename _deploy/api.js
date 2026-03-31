@@ -51,12 +51,24 @@ export default {
         const existing = await env.MEME_KV.get(key);
         let userData = existing ? JSON.parse(existing) : { spins: 0, totalSpins: 0, history: [] };
 
-        // 检查是否重复提交
-        const isNew = userData.spins === 0 && userData.totalSpins === 0;
+        // 检查是否重复提交（每个钱包/邮箱只能提交一次）
+        if (existing) {
+          // 已存在，返回错误
+          return new Response(JSON.stringify({ 
+            error: 'Already submitted!', 
+            message: 'This wallet/email has already been registered.',
+            spins: userData.spins,
+            isNew: false
+          }), { 
+            status: 400, 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+          });
+        }
         
-        // 增加抽奖次数
-        userData.spins += spins;
-        userData.totalSpins += spins;
+        // 新用户，增加抽奖次数
+        const isNew = true;
+        userData.spins = spins;
+        userData.totalSpins = spins;
         userData.lastSubmit = timestamp;
         userData.type = type;
         userData.history.push({ action: 'submit', spins, timestamp });
