@@ -263,9 +263,18 @@
         .airdrop-description {
             font-size: 16px;
             color: #00ff00;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             opacity: 0.9;
             letter-spacing: 1px;
+        }
+        
+        .airdrop-future {
+            font-size: 14px;
+            color: #00ff00;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            font-style: italic;
         }
 
         .airdrop-coins {
@@ -809,7 +818,7 @@
         /* Winners Ticker */
         .winners-ticker {
             position: fixed;
-            top: 85px;
+            top: 120px;
             left: 0;
             right: 0;
             background: linear-gradient(90deg, rgba(0, 20, 0, 0.99) 0%, rgba(0, 30, 0, 0.95) 50%, rgba(0, 20, 0, 0.99) 100%);
@@ -873,7 +882,7 @@
 
         .ticker-content {
             display: flex;
-            animation: ticker-scroll 40s linear infinite;
+            animation: ticker-scroll 80s linear infinite;
         }
 
         .winner-item {
@@ -955,30 +964,241 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            header {
+                padding: 12px 15px;
+            }
+            
+            .logo {
+                font-size: 18px;
+                gap: 8px;
+            }
+            
+            .logo-icon {
+                font-size: 20px;
+            }
+            
+            .header-buttons {
+                gap: 8px;
+            }
+            
+            .spins-badge {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+            
+            .login-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .winners-ticker {
+                top: 60px;
+                padding: 10px 0;
+            }
+            
+            .ticker-label {
+                padding: 6px 12px;
+                font-size: 12px;
+                margin-right: 15px;
+            }
+            
+            .winner-item {
+                padding: 8px 12px;
+                margin: 0 3px;
+                font-size: 11px;
+                gap: 6px;
+            }
+            
+            .winner-icon {
+                font-size: 14px;
+            }
+            
+            .winner-name {
+                font-size: 11px;
+            }
+            
+            .winner-address {
+                font-size: 10px;
+            }
+            
+            .winner-amount {
+                font-size: 12px;
+            }
+            
+            .winner-time {
+                font-size: 9px;
+            }
+            
+            main {
+                padding: 180px 10px 40px;
+            }
+            
+            .airdrop-banner {
+                padding: 15px;
+            }
+            
+            .airdrop-badge {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            
+            .airdrop-title {
+                font-size: 18px;
+            }
+            
+            .airdrop-description {
+                font-size: 12px;
+            }
+            
+            .airdrop-coins {
+                gap: 6px;
+            }
+            
+            .airdrop-coin {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
+            
+            .airdrop-coin .coin-icon {
+                font-size: 16px;
+            }
+            
             .hero-title {
-                font-size: 32px;
+                font-size: 28px;
+                letter-spacing: 2px;
             }
 
             .hero-subtitle {
-                font-size: 14px;
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
+            
+            .hero-description {
+                font-size: 13px;
+                padding: 0 10px;
             }
 
             .slot-machine-container {
-                padding: 25px;
+                padding: 20px;
+                margin-bottom: 40px;
             }
 
             .slot-message {
-                font-size: 24px;
+                font-size: 18px;
+            }
+            
+            .slot-submessage {
+                font-size: 12px;
             }
 
             .spin-btn {
-                padding: 25px 50px;
-                font-size: 24px;
+                padding: 20px 40px;
+                font-size: 20px;
+                letter-spacing: 2px;
             }
 
-            .steps-grid,
+            .input-section {
+                padding: 0 10px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .wallet-input {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+            
+            .submit-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .input-hint {
+                font-size: 10px;
+            }
+
+            .how-to-play {
+                padding: 25px 15px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .step-card {
+                padding: 15px;
+            }
+            
+            .step-number {
+                font-size: 28px;
+            }
+            
+            .step-text {
+                font-size: 13px;
+            }
+
             .stats-section {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                padding: 0 10px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-value {
+                font-size: 24px;
+            }
+            
+            .stat-label {
+                font-size: 10px;
+            }
+
+            .trending-section {
+                padding: 25px 15px;
+            }
+            
+            .trending-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .coin-card {
+                padding: 10px;
+            }
+            
+            .coin-icon {
+                font-size: 28px;
+            }
+            
+            .coin-name {
+                font-size: 12px;
+            }
+            
+            .coin-change {
+                font-size: 11px;
+            }
+            
+            footer {
+                padding: 20px 15px;
+            }
+            
+            .footer-links {
+                gap: 10px;
+            }
+            
+            .footer-link {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+            
+            .footer-disclaimer {
+                font-size: 10px;
+                padding: 0 10px;
             }
         }
     </style>
@@ -1021,6 +1241,7 @@
                     <div class="airdrop-badge">🎁 AIRDROP</div>
                     <h2 class="airdrop-title">SPIN & WIN RANDOM TOKENS!</h2>
                     <p class="airdrop-description">Every spin = Chance to win real crypto!</p>
+                    <p class="airdrop-future">Join us now - more meme coins coming soon!</p>
                     <div class="airdrop-coins">
                         <div class="airdrop-coin"><span class="coin-icon">🐕</span> DOGE</div>
                         <div class="airdrop-coin"><span class="coin-icon">🐸</span> PEPE</div>
@@ -1029,7 +1250,7 @@
                         <div class="airdrop-coin"><span class="coin-icon">🦞</span> MEME</div>
                         <div class="airdrop-coin"><span class="coin-icon">💎</span> ETH</div>
                         <div class="airdrop-coin"><span class="coin-icon">🚀</span> MOON</div>
-                        <div class="airdrop-coin"><span class="coin-icon">💸/span> BNB</div>
+                        <div class="airdrop-coin"><span class="coin-icon">💸</span> BNB</div>
                         <div class="airdrop-coin"><span class="coin-icon">🎯</span> SOL</div>
                         <div class="airdrop-coin"><span class="coin-icon">🔥</span> JACKPOT</div>
                     </div>
@@ -1212,7 +1433,7 @@
             const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Wilson', 'Taylor', 'Anderson', 'Thomas', 'Moore', 'Jackson', 'Martin', 'Lee', 'Thompson', 'White', 'Harris', 'Clark', 'Lewis', 'Robinson', 'Walker'];
             const coins = ['DOGE', 'PEPE', 'WIF', 'BONK', 'MEME', 'ETH', 'SOL', 'SHIB', 'BONK', 'WIF', 'PEPE', 'DOGE', 'BONK', 'MEME', 'ETH', 'SOL', 'SHIB', 'WIF', 'PEPE', 'DOGE'];
             const timeAgo = ['just now', '1 min ago', '2 min ago', '3 min ago', '4 min ago', '5 min ago', '6 min ago', '7 min ago', '8 min ago', '9 min ago', '10 min ago', '15 min ago', '20 min ago', '25 min ago', '30 min ago'];
-            const icons = ['🎰', '🚀', '💎', '🎯', '💸, '🔥', '💰', '🎁', ''✅', '🌟', '🏆', '💎', '🔥', '🚀', '💰'];
+            const icons = ['🎰', '🚀', '💎', '🎯', '💸', '🔥', '💰', '🎁', '✅', '🌟', '🏆', '💎', '🔥', '🚀', '💰'];
 
             const winners = [];
 
@@ -1306,6 +1527,13 @@
         function handleSpin() {
             if (isSpinning) return;
 
+            const walletInput = document.getElementById('wallet-input').value.trim();
+            if (!walletInput) {
+                alert('Please enter a wallet address or email first!');
+                document.getElementById('wallet-input').focus();
+                return;
+            }
+
             if (spinsLeft <= 0) {
                 alert('No spins left! Enter wallet or email to get more spins.');
                 return;
@@ -1333,7 +1561,7 @@
                 '🎰 SPINNING...',
                 '🎯 ROLLING...',
                 '💎 WINNING...',
-                '鉁?ALMOST...',
+                '⭐ALMOST...',
                 '🚀 ACCELERATING...',
                 '🎰 RISING...',
                 '💥 EXPLOSIVE...'
