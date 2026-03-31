@@ -556,7 +556,7 @@
                 const res = await fetch(`${API_URL}/api/spins?user=${encodeURIComponent(currentUser)}`);
                 const data = await res.json();
                 
-                if (data.spins === undefined) {
+                if (userData.spins === undefined) {
                     // User not found
                     document.getElementById('loginPrompt').innerHTML = `
                         <h2>👤 Profile Not Found</h2>
@@ -573,10 +573,10 @@
                 // Update display
                 const display = currentUser.startsWith('email:') ? currentUser.replace('email:', '') : currentUser;
                 document.getElementById('displayWallet').textContent = display.substring(0, 6) + '...' + display.substring(display.length - 4);
-                document.getElementById('totalSpins').textContent = data.totalSpins || 0;
-                document.getElementById('totalPoints').textContent = data.totalPoints || 0;
-                document.getElementById('spinsLeft').textContent = data.spins || 0;
-                document.getElementById('streakDays').textContent = data.streak || 0;
+                document.getElementById('totalSpins').textContent = userData.totalSpins || 0;
+                document.getElementById('totalPoints').textContent = userData.totalPoints || 0;
+                document.getElementById('spinsLeft').textContent = userData.spins || 0;
+                document.getElementById('streakDays').textContent = userData.streak || 0;
                 
                 // Initialize invite link
                 initInviteLink();

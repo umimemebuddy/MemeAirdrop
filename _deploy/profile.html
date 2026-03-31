@@ -239,6 +239,204 @@
         }
 
         .footer a { color: var(--cyan); text-decoration: none; }
+        
+        /* Invite Section */
+        .invite-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(0,0,0,0.4);
+            border: 2px solid var(--purple);
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .invite-title {
+            font-size: 22px;
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .invite-desc {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .invite-link-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .invite-input {
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 14px;
+            background: rgba(0,0,0,0.5);
+            border: 2px solid var(--cyan);
+            border-radius: 8px;
+            color: var(--green);
+            font-family: monospace;
+        }
+        
+        .copy-btn {
+            padding: 12px 20px;
+            background: var(--cyan);
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
+        
+        .invite-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .invite-count, .invite-rewards {
+            color: #aaa;
+        }
+        
+        .invite-count strong, .invite-rewards strong {
+            color: var(--gold);
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .share-twitter, .share-telegram {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .share-twitter {
+            background: #1DA1F0;
+            color: white;
+        }
+        
+        .share-telegram {
+            background: #0088cc;
+            color: white;
+        }
+        
+        .share-twitter:hover, .share-telegram:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .logo {
+                font-size: 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .container {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+            
+            .profile-card {
+                padding: 25px 20px;
+            }
+            
+            .avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+            }
+            
+            .wallet-address {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                margin: 20px 0;
+            }
+            
+            .stat-box {
+                padding: 15px;
+            }
+            
+            .stat-value {
+                font-size: 26px;
+            }
+            
+            .stat-label {
+                font-size: 11px;
+            }
+            
+            .invite-section {
+                padding: 20px 15px;
+            }
+            
+            .invite-title {
+                font-size: 18px;
+            }
+            
+            .invite-desc {
+                font-size: 13px;
+            }
+            
+            .invite-link-box {
+                flex-direction: column;
+            }
+            
+            .invite-stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+            }
+            
+            .share-twitter, .share-telegram {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-card {
+                padding: 20px 15px;
+            }
+            
+            .stat-value {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -291,6 +489,27 @@
                 <div class="history-title">📜 Recent Activity</div>
                 <div id="historyList">
                     <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Invite Section -->
+            <div class="invite-section">
+                <div class="invite-title">🎁 Invite Friends</div>
+                <p class="invite-desc">Share your invite link and earn +5 spins for each friend who joins!</p>
+                
+                <div class="invite-link-box">
+                    <input type="text" id="inviteLink" class="invite-input" readonly>
+                    <button class="copy-btn" onclick="copyInviteLink()">📋 Copy</button>
+                </div>
+                
+                <div class="invite-stats">
+                    <span class="invite-count">👥 Friends invited: <strong id="inviteCount">0</strong></span>
+                    <span class="invite-rewards">🎁 Spins earned: <strong id="inviteRewards">0</strong></span>
+                </div>
+                
+                <div class="share-buttons">
+                    <button class="share-twitter" onclick="shareToTwitter()">🐦 Share on Twitter</button>
+                    <button class="share-telegram" onclick="shareToTelegram()">✈️ Share on Telegram</button>
                 </div>
             </div>
 
@@ -358,6 +577,9 @@
                 document.getElementById('totalPoints').textContent = data.totalPoints || 0;
                 document.getElementById('spinsLeft').textContent = data.spins || 0;
                 document.getElementById('streakDays').textContent = data.streak || 0;
+                
+                // Initialize invite link
+                initInviteLink();
                 
                 // Load real history from API
                 try {
@@ -440,6 +662,94 @@
             const d = new Date(timestamp);
             return d.toLocaleDateString();
         }
+        
+        // Generate and display invite link
+        function initInviteLink() {
+            if (!currentUser) return;
+            
+            // Generate unique invite code from user
+            const inviteCode = btoa(currentUser).substring(0, 12).replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+            const inviteLink = `https://memebuddy.uk?ref=${inviteCode}`;
+            
+            document.getElementById('inviteLink').value = inviteLink;
+            
+            // Load invite stats from localStorage
+            const inviteData = JSON.parse(localStorage.getItem('memebuddy_invites') || '{"count":0,"rewards":0}');
+            document.getElementById('inviteCount').textContent = inviteData.count;
+            document.getElementById('inviteRewards').textContent = inviteData.rewards;
+        }
+        
+        // Copy invite link
+        function copyInviteLink() {
+            const linkInput = document.getElementById('inviteLink');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999);
+            
+            navigator.clipboard.writeText(linkInput.value).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                btn.style.background = '#00FF88';
+                btn.style.color = '#000';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                // Fallback for older browsers
+                document.execCommand('copy');
+                alert('Link copied!');
+            });
+        }
+        
+        // Share to Twitter
+        function shareToTwitter() {
+            const link = document.getElementById('inviteLink').value;
+            const text = encodeURIComponent(`🎰 Join MEMEBUDDY and win FREE crypto! 🦞\n\nSpin the slot machine for a chance to win DOGE, PEPE, WIF and more!\n\nUse my invite link:\n${link}\n\n#MEMEBUDDY #Airdrop #Crypto #MemeCoin @DommeByte`);
+            window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+        }
+        
+        // Share to Telegram
+        function shareToTelegram() {
+            const link = document.getElementById('inviteLink').value;
+            const text = encodeURIComponent(`🎰 Join MEMEBUDDY and win FREE crypto! 🦞\n\nSpin the slot machine for a chance to win DOGE, PEPE, WIF and more!\n\nUse my invite link: ${link}\n\n#MEMEBUDDY #Airdrop #Crypto`);
+            window.open(`https://t.me/share/url?url=${link}&text=${text}`, '_blank');
+        }
+        
+        // Handle referral from URL
+        function handleReferral() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refCode = urlParams.get('ref');
+            
+            if (refCode && currentUser) {
+                // Save referral - award spins to referrer
+                try {
+                    const inviteData = JSON.parse(localStorage.getItem('memebuddy_invites') || '{"count":0,"rewards":0}');
+                    inviteData.count++;
+                    inviteData.rewards += 5;
+                    localStorage.setItem('memebuddy_invites', JSON.stringify(inviteData));
+                    
+                    // Award extra spins to new user
+                    const newUserSpins = parseInt(localStorage.getItem('memebuddy_new_user_bonus') || '0');
+                    if (newUserSpins === 0) {
+                        localStorage.setItem('memebuddy_new_user_bonus', '5');
+                        alert('🎁 Welcome! You got +5 bonus spins from your friend\'s invite!');
+                    }
+                } catch (e) {
+                    console.error('Referral error:', e);
+                }
+            }
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (currentUser) {
+                initInviteLink();
+                handleReferral();
+            }
+        });
     </script>
 </body>
 </html>

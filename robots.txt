@@ -1,4 +1,3 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
-
 Sitemap: https://memebuddy.uk/sitemap.xml
