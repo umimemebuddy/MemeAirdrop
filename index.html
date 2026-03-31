@@ -4233,13 +4233,13 @@
 
             try {
 
-                await fetch(`${API_URL}/api/spins`, {
+                await fetch(`${API_URL}/api/submit`, {
 
                     method: 'POST',
 
                     headers: { 'Content-Type': 'application/json' },
 
-                    body: JSON.stringify({ user: user, spins: bonusSpins })
+                    body: JSON.stringify({ type: isEmail ? 'email' : 'wallet', value: value, spins: bonusSpins })
 
                 });
 
@@ -4259,7 +4259,10 @@
 
 
 
-            alert(`+${bonusSpins} spins added! You now have ${spinsLeft} spins.`);
+            // Show success message only if API call succeeded or was duplicate (localStorage check)
+            if (!submittedUsers.includes(normalizedValue)) {
+                alert(`+${bonusSpins} spins added! You now have ${spinsLeft} spins.`);
+            }
 
         }
 
