@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -441,33 +441,33 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo">🦞 MEMEBUDDY</div>
+        <div class="logo">馃 MEMEBUDDY</div>
         <div class="nav-links">
-            <a href="index.html">🎰 Spin</a>
-            <a href="#" onclick="showProfile()">👤 Profile</a>
-            <a href="#">🏆 Leaderboard</a>
-            <a href="#">📊 Stats</a>
+            <a href="index.html">馃幇 Spin</a>
+            <a href="#" onclick="showProfile()">馃懁 Profile</a>
+            <a href="#">馃弳 Leaderboard</a>
+            <a href="#">馃搳 Stats</a>
         </div>
     </div>
     
     <div class="container">
         <!-- Login Prompt (shown if not logged in) -->
         <div id="loginPrompt" class="login-prompt">
-            <h2>👤 My Profile</h2>
+            <h2>馃懁 My Profile</h2>
             <p style="color: #888; margin-bottom: 30px;">Enter your wallet address to view your stats</p>
             <input type="text" id="loginInput" class="login-input" placeholder="0x..." />
             <br>
-            <button class="login-btn" onclick="doLogin()">🔓 View Profile</button>
+            <button class="login-btn" onclick="doLogin()">馃敁 View Profile</button>
         </div>
         
         <!-- Profile (shown after login) -->
         <div id="profileCard" class="profile-card" style="display: none;">
-            <div class="avatar">🦞</div>
+            <div class="avatar">馃</div>
             <h2>Welcome Back!</h2>
             <div class="wallet-address" id="displayWallet">0x742d35Cc6634C0532925a3b844Bc9e7595f0eB1E</div>
             
             <div class="streak-badge">
-                🔥 <span id="streakDays">3</span> Day Streak
+                馃敟 <span id="streakDays">3</span> Day Streak
             </div>
             
             <div class="stats-grid">
@@ -486,7 +486,7 @@
             </div>
             
             <div class="history-section">
-                <div class="history-title">📜 Recent Activity</div>
+                <div class="history-title">馃摐 Recent Activity</div>
                 <div id="historyList">
                     <!-- Populated by JS -->
                 </div>
@@ -494,31 +494,31 @@
 
             <!-- Invite Section -->
             <div class="invite-section">
-                <div class="invite-title">🎁 Invite Friends</div>
+                <div class="invite-title">馃巵 Invite Friends</div>
                 <p class="invite-desc">Share your invite link and earn +5 spins for each friend who joins!</p>
                 
                 <div class="invite-link-box">
                     <input type="text" id="inviteLink" class="invite-input" readonly>
-                    <button class="copy-btn" onclick="copyInviteLink()">📋 Copy</button>
+                    <button class="copy-btn" onclick="copyInviteLink()">馃搵 Copy</button>
                 </div>
                 
                 <div class="invite-stats">
-                    <span class="invite-count">👥 Friends invited: <strong id="inviteCount">0</strong></span>
-                    <span class="invite-rewards">🎁 Spins earned: <strong id="inviteRewards">0</strong></span>
+                    <span class="invite-count">馃懃 Friends invited: <strong id="inviteCount">0</strong></span>
+                    <span class="invite-rewards">馃巵 Spins earned: <strong id="inviteRewards">0</strong></span>
                 </div>
                 
                 <div class="share-buttons">
-                    <button class="share-twitter" onclick="shareToTwitter()">🐦 Share on Twitter</button>
-                    <button class="share-telegram" onclick="shareToTelegram()">✈️ Share on Telegram</button>
+                    <button class="share-twitter" onclick="shareToTwitter()">馃惁 Share on Twitter</button>
+                    <button class="share-telegram" onclick="shareToTelegram()">鉁堬笍 Share on Telegram</button>
                 </div>
             </div>
 
-            <button class="logout-btn" onclick="doLogout()">🚪 Logout</button>
+            <button class="logout-btn" onclick="doLogout()">馃毆 Logout</button>
         </div>
     </div>
     
     <div class="footer">
-        <p>🦞 MEMEBUDDY - The People's Meme Coin</p>
+        <p>馃 MEMEBUDDY - The People's Meme Coin</p>
         <p><a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">Contact</a></p>
     </div>
     
@@ -553,15 +553,15 @@
         
         async function loadProfile() {
             try {
-                const res = await fetch(`${API_URL}/api/spins?user=${encodeURIComponent(currentUser)}`);
-                const data = await res.json();
+                const res = await fetch(`${API_URL}/api/history?user=${encodeURIComponent(currentUser)}`);
+                const userData = await res.json();
                 
-                if (userData.spins === undefined) {
+                if (useruserData.spins === undefined) {
                     // User not found
                     document.getElementById('loginPrompt').innerHTML = `
-                        <h2>👤 Profile Not Found</h2>
+                        <h2>馃懁 Profile Not Found</h2>
                         <p style="color: #888; margin-bottom: 20px;">You haven't spun yet. Go spin first!</p>
-                        <a href="index.html" class="login-btn" style="text-decoration: none; display: inline-block;">🎰 Go Spin</a>
+                        <a href="index.html" class="login-btn" style="text-decoration: none; display: inline-block;">馃幇 Go Spin</a>
                     `;
                     return;
                 }
@@ -573,10 +573,10 @@
                 // Update display
                 const display = currentUser.startsWith('email:') ? currentUser.replace('email:', '') : currentUser;
                 document.getElementById('displayWallet').textContent = display.substring(0, 6) + '...' + display.substring(display.length - 4);
-                document.getElementById('totalSpins').textContent = userData.totalSpins || 0;
-                document.getElementById('totalPoints').textContent = userData.totalPoints || 0;
-                document.getElementById('spinsLeft').textContent = userData.spins || 0;
-                document.getElementById('streakDays').textContent = userData.streak || 0;
+                document.getElementById('totalSpins').textContent = useruserData.totalSpins || 0;
+                document.getElementById('totalPoints').textContent = useruserData.totalPoints || 0;
+                document.getElementById('spinsLeft').textContent = useruserData.spins || 0;
+                document.getElementById('streakDays').textContent = useruserData.streak || 0;
                 
                 // Initialize invite link
                 initInviteLink();
@@ -588,9 +588,9 @@
                     
                     if (histData.history && histData.history.length > 0) {
                         const actionLabels = {
-                            'submit': '📝 Registered',
-                            'spin': '🎰 Spin',
-                            'daily': '🔥 Daily Login'
+                            'submit': '馃摑 Registered',
+                            'spin': '馃幇 Spin',
+                            'daily': '馃敟 Daily Login'
                         };
                         
                         let html = '';
@@ -609,7 +609,7 @@
                         document.getElementById('historyList').innerHTML = html;
                     } else {
                         document.getElementById('historyList').innerHTML = `
-                            <div class="empty-history">No activity yet. Start spinning! 🎰</div>
+                            <div class="empty-history">No activity yet. Start spinning! 馃幇</div>
                         `;
                     }
                 } catch (histErr) {
@@ -638,11 +638,11 @@
             document.getElementById('profileCard').style.display = 'none';
             document.getElementById('loginPrompt').style.display = 'block';
             document.getElementById('loginPrompt').innerHTML = `
-                <h2>👤 My Profile</h2>
+                <h2>馃懁 My Profile</h2>
                 <p style="color: #888; margin-bottom: 30px;">Enter your wallet address to view your stats</p>
                 <input type="text" id="loginInput" class="login-input" placeholder="0x..." />
                 <br>
-                <button class="login-btn" onclick="doLogin()">🔓 View Profile</button>
+                <button class="login-btn" onclick="doLogin()">馃敁 View Profile</button>
             `;
         }
 
@@ -688,7 +688,7 @@
             navigator.clipboard.writeText(linkInput.value).then(() => {
                 const btn = document.querySelector('.copy-btn');
                 const originalText = btn.textContent;
-                btn.textContent = '✓ Copied!';
+                btn.textContent = '鉁?Copied!';
                 btn.style.background = '#00FF88';
                 btn.style.color = '#000';
                 
@@ -707,14 +707,14 @@
         // Share to Twitter
         function shareToTwitter() {
             const link = document.getElementById('inviteLink').value;
-            const text = encodeURIComponent(`🎰 Join MEMEBUDDY and win FREE crypto! 🦞\n\nSpin the slot machine for a chance to win DOGE, PEPE, WIF and more!\n\nUse my invite link:\n${link}\n\n#MEMEBUDDY #Airdrop #Crypto #MemeCoin @DommeByte`);
+            const text = encodeURIComponent(`馃幇 Join MEMEBUDDY and win FREE crypto! 馃\n\nSpin the slot machine for a chance to win DOGE, PEPE, WIF and more!\n\nUse my invite link:\n${link}\n\n#MEMEBUDDY #Airdrop #Crypto #MemeCoin @DommeByte`);
             window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
         }
         
         // Share to Telegram
         function shareToTelegram() {
             const link = document.getElementById('inviteLink').value;
-            const text = encodeURIComponent(`🎰 Join MEMEBUDDY and win FREE crypto! 🦞\n\nSpin the slot machine for a chance to win DOGE, PEPE, WIF and more!\n\nUse my invite link: ${link}\n\n#MEMEBUDDY #Airdrop #Crypto`);
+            const text = encodeURIComponent(`馃幇 Join MEMEBUDDY and win FREE crypto! 馃\n\nSpin the slot machine for a chance to win DOGE, PEPE, WIF and more!\n\nUse my invite link: ${link}\n\n#MEMEBUDDY #Airdrop #Crypto`);
             window.open(`https://t.me/share/url?url=${link}&text=${text}`, '_blank');
         }
         
@@ -735,7 +735,7 @@
                     const newUserSpins = parseInt(localStorage.getItem('memebuddy_new_user_bonus') || '0');
                     if (newUserSpins === 0) {
                         localStorage.setItem('memebuddy_new_user_bonus', '5');
-                        alert('🎁 Welcome! You got +5 bonus spins from your friend\'s invite!');
+                        alert('馃巵 Welcome! You got +5 bonus spins from your friend\'s invite!');
                     }
                 } catch (e) {
                     console.error('Referral error:', e);
@@ -753,3 +753,4 @@
     </script>
 </body>
 </html>
+
