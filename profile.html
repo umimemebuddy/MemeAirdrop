@@ -210,6 +210,34 @@
             font-size: 12px;
         }
         
+        /* Logout Button */
+        .logout-btn {
+            background: rgba(255, 0, 0, 0.15);
+            border: 2px solid #FF4444;
+            color: #FF6666;
+            padding: 10px 25px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 0, 0, 0.3);
+            border-color: #FF6666;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Empty history */
+        .empty-history {
+            text-align: center;
+            padding: 30px;
+            color: #555;
+        }
+
         .footer a { color: var(--cyan); text-decoration: none; }
     </style>
 </head>
@@ -265,6 +293,8 @@
                     <!-- Populated by JS -->
                 </div>
             </div>
+
+            <button class="logout-btn" onclick="doLogout()">🚪 Logout</button>
         </div>
     </div>
     
@@ -329,24 +359,43 @@
                 document.getElementById('spinsLeft').textContent = data.spins || 0;
                 document.getElementById('streakDays').textContent = data.streak || 0;
                 
-                // Load history (placeholder - would need history API)
-                document.getElementById('historyList').innerHTML = `
-                    <div class="history-item">
-                        <span class="history-action">🎰 Daily Login</span>
-                        <span class="history-points">+1 spin</span>
-                        <span class="history-time">Just now</span>
-                    </div>
-                    <div class="history-item">
-                        <span class="history-action">🎰 Spin Won</span>
-                        <span class="history-points">+50 pts</span>
-                        <span class="history-time">2 hours ago</span>
-                    </div>
-                    <div class="history-item">
-                        <span class="history-action">📧 Email Bonus</span>
-                        <span class="history-points">+2 spins</span>
-                        <span class="history-time">Yesterday</span>
-                    </div>
-                `;
+                // Load real history from API
+                try {
+                    const histRes = await fetch(`${API_URL}/api/history?user=${encodeURIComponent(currentUser)}`);
+                    const histData = await histRes.json();
+                    
+                    if (histData.history && histData.history.length > 0) {
+                        const actionLabels = {
+                            'submit': '📝 Registered',
+                            'spin': '🎰 Spin',
+                            'daily': '🔥 Daily Login'
+                        };
+                        
+                        let html = '';
+                        histData.history.forEach(item => {
+                            const label = actionLabels[item.action] || item.action;
+                            const points = item.points ? `+${item.points} pts` : (item.spins ? `+${item.spins} spins` : (item.bonus ? `+${item.bonus} spins` : ''));
+                            const timeStr = formatTime(item.timestamp);
+                            html += `
+                                <div class="history-item">
+                                    <span class="history-action">${label}</span>
+                                    <span class="history-points">${points}</span>
+                                    <span class="history-time">${timeStr}</span>
+                                </div>
+                            `;
+                        });
+                        document.getElementById('historyList').innerHTML = html;
+                    } else {
+                        document.getElementById('historyList').innerHTML = `
+                            <div class="empty-history">No activity yet. Start spinning! 🎰</div>
+                        `;
+                    }
+                } catch (histErr) {
+                    console.error('History load error:', histErr);
+                    document.getElementById('historyList').innerHTML = `
+                        <div class="empty-history">Could not load history.</div>
+                    `;
+                }
                 
             } catch (e) {
                 console.error(e);
@@ -359,6 +408,37 @@
                 document.getElementById('loginPrompt').style.display = 'block';
                 document.getElementById('profileCard').style.display = 'none';
             }
+        }
+
+        function doLogout() {
+            localStorage.removeItem('memebuddy_user');
+            currentUser = null;
+            document.getElementById('profileCard').style.display = 'none';
+            document.getElementById('loginPrompt').style.display = 'block';
+            document.getElementById('loginPrompt').innerHTML = `
+                <h2>👤 My Profile</h2>
+                <p style="color: #888; margin-bottom: 30px;">Enter your wallet address to view your stats</p>
+                <input type="text" id="loginInput" class="login-input" placeholder="0x..." />
+                <br>
+                <button class="login-btn" onclick="doLogin()">🔓 View Profile</button>
+            `;
+        }
+
+        function formatTime(timestamp) {
+            if (!timestamp) return '';
+            const now = Date.now();
+            const diff = now - timestamp;
+            const mins = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (mins < 1) return 'Just now';
+            if (mins < 60) return `${mins}m ago`;
+            if (hours < 24) return `${hours}h ago`;
+            if (days < 7) return `${days}d ago`;
+            
+            const d = new Date(timestamp);
+            return d.toLocaleDateString();
         }
     </script>
 </body>
