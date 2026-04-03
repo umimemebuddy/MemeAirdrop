@@ -2,6 +2,10 @@ name = "memebuddy-api"
 main = "api.js"
 compatibility_date = "2024-01-01"
 
+routes = [
+  { pattern = "memebuddy.uk/api/*", zone_name = "memebuddy.uk" }
+]
+
 [[kv_namespaces]]
 binding = "MEME_KV"
 id = "d7e0505dc92a43398df5ea8093a1fda9"
